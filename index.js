@@ -5,7 +5,7 @@ const botonSend = obtenerElementos("sendButton", "id", false)
 const botonNext = obtenerElementos("nextButton", "id", false)
 const botonReset = obtenerElementos("resetButton", "id", false)
 let inputs = obtenerElementos("inputs_word input", "class", true)
-
+let racha = 0
 let borderindex = 1
 let palabrasUsadas = []
 let palabrasNoAcertadas = []
@@ -67,6 +67,7 @@ inputs.forEach((input, index, inputs) => {
 
 
 async function trueOrFalse() {
+    console.log(palabraSecreta)
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
 
     const words = await allwords()
@@ -85,13 +86,17 @@ async function trueOrFalse() {
 
     if (palabraSecreta == palabraUsuario.toLowerCase()) {
         colorearLetras(true)
-
+        racha++;
         botonSend.style.display = "none";
         botonSend.disabled = true;
         botonNext.style.display = "block"
         botonNext.disabled = false;
         inputs.forEach(element => element.disabled = true)
         palabrasUsadas.push(palabraSecreta)
+        setTimeout(()=>{
+            popUp(true)
+
+        },[1600])
         return;
     } else {
         colorearLetras(false)
@@ -159,6 +164,7 @@ function colorearLetras(value) {
                     inputsDivs[index].style.backgroundColor = "green"
                     inputsDivs[index].classList.add('zoom-in');
                 }, [index * 100])
+                
                 return;
             })
         } else {
@@ -223,9 +229,65 @@ function colorearLetras(value) {
             botonReset.disabled = false;
             inputs.forEach(element => element.disabled = true)
             palabrasNoAcertadas.push(palabraSecreta)
+            racha = 0;
+            setTimeout(()=>{
+                popUp(false)
+
+            },[1500])
         }
     }
 }
 
 
 
+function popUp(value){
+
+    
+    const body = obtenerElementos("body","etiqueta", false)
+    const spanPop = document.createElement("span")
+    spanPop.classList.add("popup")
+    
+    if(value){
+        spanPop.innerHTML=`
+            <div id="contenedor1">
+                <h3>¡Felicidades!</h3>
+                <h3>¡Adivinaste la palabra!</h3>
+                <h4>Racha: ${racha}</h4>
+                <h4>Acertadas: ${palabrasUsadas.length}</h4>
+                <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
+                <button id="popupboton" type="boton">Aceptar</button>
+            </div>
+        `;
+    }else{
+        spanPop.innerHTML=`
+            <div id="contenedor1">
+                <h3>¡Una lastima!</h3>
+                <h3>¡Sigue intentando!</h3>
+                <h4>Racha: ${racha}</h4>
+                <h4>Acertadas: ${palabrasUsadas.length}</h4>
+                <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
+                <button id="popupboton" type="boton">Aceptar</button>
+            </div>
+        `;
+
+    }
+
+    body.appendChild(spanPop)
+
+    const boton = obtenerElementos("popupboton","id", false)
+
+    boton.addEventListener("click",()=>{
+
+        closePopup(body,spanPop)
+
+    })
+    
+}
+
+
+function closePopup(body, pop){
+
+    body.removeChild(pop)
+
+
+}
