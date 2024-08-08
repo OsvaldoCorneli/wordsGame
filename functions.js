@@ -33,7 +33,7 @@ export function obtenerElementos(nombre, tipo, all) {
 
 
 export const getWordSecret = async () => {
-    const response = await fetch("/palabras.json");
+    const response = await fetch("./palabras.json");
     const data = await response.json();
     return data;
 }
