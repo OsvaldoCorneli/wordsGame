@@ -1,0 +1,75 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+
+    background: linear-gradient(to right, #2296da, #e4cead, #1b1b1b);
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.inputs_word{
+    display: flex;
+
+}
+
+.inputs_word input{
+    font-size: 50px;
+    text-align: center;
+    width: 56px;
+    ;
+}
+
+.borders-1,.borders-2,.borders-3,.borders-4,.borders-5{
+    display: flex;
+}
+
+.borders-1 div,.borders-2 div,.borders-3 div,.borders-4 div,.borders-5 div{
+    margin: 2px 0;
+    width: 56px;
+    height: 62px;
+    border: solid 1px black;
+    font-size: 50px;
+    text-align: center;
+}
+
+
+
+#sendButton{
+    display: block;
+    margin: 10px;
+    padding: 5px 10px
+}
+
+#resetButton{
+    display: none;
+    margin: 10px;
+    padding: 5px 10px
+}
+
+#nextButton{
+    display: none;
+    margin: 10px;
+    padding: 5px 10px
+}
+
+ @keyframes zoomIn {
+            from {
+                transform: scale(1);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1.1); /* Ajusta el valor para el nivel de zoom deseado */
+                opacity: 1;
+            }
+        }
+
+        .zoom-in {
+            animation: zoomIn 1s ease-in-out;
+        }
