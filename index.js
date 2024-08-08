@@ -4,7 +4,8 @@ let palabraSecreta;
 const botonSend = obtenerElementos("sendButton", "id", false)
 const botonNext = obtenerElementos("nextButton", "id", false)
 const botonReset = obtenerElementos("resetButton", "id", false)
-const inputs = obtenerElementos("inputs_word input", "class", true)
+let inputs = obtenerElementos("inputs_word input", "class", true)
+
 let borderindex = 1
 let palabrasUsadas = []
 let palabrasNoAcertadas = []
@@ -39,7 +40,6 @@ getTheWord()
 
 inputs.forEach((input, index, inputs) => {
 
-
     input.addEventListener("input", () => {
         if (input.value.length === input.maxLength) {
             const nextInput = inputs[index + 1];
@@ -61,14 +61,17 @@ inputs.forEach((input, index, inputs) => {
                 trueOrFalse()
         }
     })
+
+    
 })
 
 
 async function trueOrFalse() {
+    console.log(palabraSecreta)
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
 
     const words = await allwords()
-    if (!words.palabras.includes(palabraUsuario)) {
+    if (!words.palabras.includes(palabraUsuario.toLowerCase())) {
         inputs.forEach((input) => {
             input.style.backgroundColor = "red";
             setTimeout(() => {
@@ -81,7 +84,7 @@ async function trueOrFalse() {
     }
 
 
-    if (palabraSecreta == palabraUsuario) {
+    if (palabraSecreta == palabraUsuario.toLowerCase()) {
         colorearLetras(true)
 
         botonSend.style.display = "none";
@@ -151,7 +154,8 @@ function colorearLetras(value) {
         if (value) {
 
             inputs.forEach((element, index) => {
-                inputsDivs[index].innerHTML = element.value
+                element.value = element.value.toLowerCase()
+                inputsDivs[index].innerHTML = element.value.toUpperCase()
                 setTimeout(() => {
                     inputsDivs[index].style.backgroundColor = "green"
                     inputsDivs[index].classList.add('zoom-in');
@@ -163,9 +167,10 @@ function colorearLetras(value) {
             let secretsWords = palabraSecreta.split("");
 
             inputs.forEach((element, index) => {
+                element.value = element.value.toLowerCase()
                 if (secretsWords.includes(element.value)) {
                     if (secretWord[index] == element.value) {
-                        inputsDivs[index].innerHTML = element.value
+                        inputsDivs[index].innerHTML = element.value.toUpperCase()
                         setTimeout(() => {
                             inputsDivs[index].style.backgroundColor = "green"
                             inputsDivs[index].classList.add('zoom-in');
@@ -184,9 +189,9 @@ function colorearLetras(value) {
             })
 
             inputs.forEach((element, index) => {
-
+                element.value = element.value.toLowerCase()
                 if (secretWord[index] != null && secretsWords.includes(element.value)) {
-                    inputsDivs[index].innerHTML = element.value
+                    inputsDivs[index].innerHTML = element.value.toUpperCase()
                     setTimeout(() => {
                         inputsDivs[index].style.backgroundColor = "yellow"
                         inputsDivs[index].classList.add('zoom-in');
@@ -200,7 +205,7 @@ function colorearLetras(value) {
                     secretWord[index] = null;
 
                 } else if (secretWord[index] != null) {
-                    inputsDivs[index].innerHTML = element.value
+                    inputsDivs[index].innerHTML = element.value.toUpperCase()
                     setTimeout(() => {
                         inputsDivs[index].style.backgroundColor = "grey"
                         inputsDivs[index].classList.add('zoom-in');
