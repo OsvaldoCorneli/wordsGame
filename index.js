@@ -8,7 +8,7 @@ const inputs = obtenerElementos("inputs_word input", "class", true)
 let borderindex = 1
 let palabrasUsadas = []
 let palabrasNoAcertadas = []
-console.log("palabrasUsadas", palabrasUsadas)
+
 botonNext.addEventListener("click", () => {
     nextWordGame(true)
 })
@@ -66,7 +66,7 @@ inputs.forEach((input, index, inputs) => {
 
 async function trueOrFalse() {
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
-    console.log(palabraSecreta)
+
     const words = await allwords()
     if (!words.palabras.includes(palabraUsuario)) {
         inputs.forEach((input) => {
@@ -105,8 +105,7 @@ async function trueOrFalse() {
 }
 
 const nextWordGame = (value) => {
-    console.log("palabrasUsadas", palabrasUsadas)
-    console.log("palabrasNoAcertadas", palabrasNoAcertadas)
+
     for (let i = 1; i <= borderindex; i++) {
         const inputsDivs = obtenerElementos(`borders-${i} div`, "class", true)
         inputsDivs.forEach((element) => {
@@ -212,7 +211,6 @@ function colorearLetras(value) {
             })
 
         }
-        console.log(borderindex)
         borderindex++;
         if(borderindex == 6){
             botonSend.style.display = "none";
