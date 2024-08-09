@@ -248,16 +248,6 @@ function popUp(value){
     
     if(value){
         spanPop.innerHTML=`
-            <div id="contenedor1">
-                <h3>¡Felicidades!</h3>
-                <h3>¡Adivinaste la palabra!</h3>
-                <h3>""</h3>
-                <h4></h4>
-                <h4></h4>
-                <h4></h4>
-                <button id="popupboton" type="boton">Aceptar</button>
-            </div>
-            <span class="popup">
         <div id="contenedor1">
             <div id="congrats">
                 <h3>¡Felicidades!</h3>
@@ -271,7 +261,6 @@ function popUp(value){
             </div>
             <button id="popupboton" type="boton">Aceptar</button>
         </div>
-    </span>
         `;
     }else{
         spanPop.innerHTML=`
