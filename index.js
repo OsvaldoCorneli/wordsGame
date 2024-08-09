@@ -67,6 +67,7 @@ inputs.forEach((input, index, inputs) => {
 
 
 async function trueOrFalse() {
+    console.log(palabraSecreta)
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
 
     const words = await allwords()
@@ -149,7 +150,7 @@ const nextWordGame = (value) => {
 
 
 function colorearLetras(value) {
-    if (borderindex <= 5) {
+    if (borderindex <= 6) {
         const inputsDivs = obtenerElementos(`borders-${borderindex} div`, "class", true)
 
         const secretWord = palabraSecreta.split("")
@@ -219,20 +220,20 @@ function colorearLetras(value) {
 
             })
 
+            borderindex++;
+            if(borderindex == 6){
+                botonSend.style.display = "none";
+                botonSend.disabled = true;
+                botonReset.style.display = "block"
+                botonReset.disabled = false;
+                inputs.forEach(element => element.disabled = true)
+                palabrasNoAcertadas.push(palabraSecreta)
+                racha = 0;
+                setTimeout(()=>{
+                    popUp(false)
+    
+                },[1500])
         }
-        borderindex++;
-        if(borderindex == 6){
-            botonSend.style.display = "none";
-            botonSend.disabled = true;
-            botonReset.style.display = "block"
-            botonReset.disabled = false;
-            inputs.forEach(element => element.disabled = true)
-            palabrasNoAcertadas.push(palabraSecreta)
-            racha = 0;
-            setTimeout(()=>{
-                popUp(false)
-
-            },[1500])
         }
     }
 }
@@ -251,22 +252,44 @@ function popUp(value){
             <div id="contenedor1">
                 <h3>¡Felicidades!</h3>
                 <h3>¡Adivinaste la palabra!</h3>
+                <h3>""</h3>
+                <h4></h4>
+                <h4></h4>
+                <h4></h4>
+                <button id="popupboton" type="boton">Aceptar</button>
+            </div>
+            <span class="popup">
+        <div id="contenedor1">
+            <div id="congrats">
+                <h3>¡Felicidades!</h3>
+                <h3>¡Adivinaste la palabra!</h3>
+            </div>
+            <h3>"${palabraSecreta.toUpperCase()}"</h3>
+            <div id="data">
                 <h4>Racha: ${racha}</h4>
                 <h4>Acertadas: ${palabrasUsadas.length}</h4>
                 <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
-                <button id="popupboton" type="boton">Aceptar</button>
             </div>
+            <button id="popupboton" type="boton">Aceptar</button>
+        </div>
+    </span>
         `;
     }else{
         spanPop.innerHTML=`
-            <div id="contenedor1">
-                <h3>¡Una lastima!</h3>
-                <h3>¡Sigue intentando!</h3>
-                <h4>Racha: ${racha}</h4>
-                <h4>Acertadas: ${palabrasUsadas.length}</h4>
-                <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
-                <button id="popupboton" type="boton">Aceptar</button>
-            </div>
+             <div id="contenedor1">
+        <div id="congrats">
+        <h3>¡Perdiste!</h3>
+        <h3>¡Sigue intentando!</h3>
+        </div>
+        <h3>La palabra era:</h3>
+        <h3 style="background-color: red; color: white; width: 100%; text-align: center;">"${palabraSecreta.toUpperCase()}"</h3>
+        <div id="data">
+        <h4>Racha: ${racha}</h4>
+        <h4>Acertadas: ${palabrasUsadas.length}</h4>
+        <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
+    </div>
+        <button id="popupboton" type="boton">Aceptar</button>
+    </div>
         `;
 
     }
