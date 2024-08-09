@@ -67,7 +67,6 @@ inputs.forEach((input, index, inputs) => {
 
 
 async function trueOrFalse() {
-
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
 
     const words = await allwords()
