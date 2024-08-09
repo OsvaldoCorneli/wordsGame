@@ -1,4 +1,4 @@
-import { obtenerElementos, getWordSecret, ObtenerPalabraUsuario, allwords } from "./functions.js"
+import { obtenerElementos, getWordSecret, ObtenerPalabraUsuario, allwords, agregarPalabraLocalStorage } from "./functions.js"
 
 let palabraSecreta;
 const botonSend = obtenerElementos("sendButton", "id", false)
@@ -22,6 +22,7 @@ botonReset.addEventListener("click", () => {
 })
 
 
+
 const getTheWord = async () => {
     const word = await getWordSecret();
     const indice = Math.floor(Math.random() * word.palabras.length)
@@ -35,7 +36,7 @@ const getTheWord = async () => {
 }
 
 getTheWord()
-
+primeraCarga()
 
 
 inputs.forEach((input, index, inputs) => {
@@ -67,6 +68,7 @@ inputs.forEach((input, index, inputs) => {
 
 
 async function trueOrFalse() {
+    console.log("palabra",palabraSecreta)
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
 
     const words = await allwords()
@@ -96,6 +98,7 @@ async function trueOrFalse() {
             popUp(true)
 
         },[1600])
+        agregarPalabraLocalStorage(palabrasUsadas ,"acetarda")
         return;
     } else {
         colorearLetras(false)
@@ -149,7 +152,8 @@ const nextWordGame = (value) => {
 
 
 function colorearLetras(value) {
-    if (borderindex <= 6) {
+    if (borderindex <= 7) {
+        
         const inputsDivs = obtenerElementos(`borders-${borderindex} div`, "class", true)
 
         const secretWord = palabraSecreta.split("")
@@ -220,7 +224,7 @@ function colorearLetras(value) {
             })
 
             borderindex++;
-            if(borderindex == 6){
+            if(borderindex === 7){
                 botonSend.style.display = "none";
                 botonSend.disabled = true;
                 botonReset.style.display = "block"
@@ -298,6 +302,23 @@ function popUp(value){
 function closePopup(body, pop){
 
     body.removeChild(pop)
+
+
+}
+
+
+export function primeraCarga(){
+    const acertadas = localStorage.getItem("acertadas")
+    const noacertadas = localStorage.getItem("noAcertadas")
+    const rachas = localStorage.getItem("racha")
+    
+
+    if(acertadas != null){
+        palabrasUsadas = JSON.parse(acertadas)
+    }
+
+    
+
 
 
 }

@@ -34,11 +34,11 @@ h3{
     ;
 }
 
-.borders-1,.borders-2,.borders-3,.borders-4,.borders-5{
+.borders-1,.borders-2,.borders-3,.borders-4,.borders-5,.borders-6{
     display: flex;
 }
 
-.borders-1 div,.borders-2 div,.borders-3 div,.borders-4 div,.borders-5 div{
+.borders-1 div,.borders-2 div,.borders-3 div,.borders-4 div,.borders-5 div, .borders-6 div{
     margin: 2px 0;
     width: 56px;
     height: 62px;
@@ -111,6 +111,8 @@ h3{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 75%;
+    height: 350px;
 
 }
 
