@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+
+
+
+
 body{
 
     background: linear-gradient(to right, #2296da, #e4cead, #1b1b1b);
@@ -28,20 +32,20 @@ h3{
 }
 
 .inputs_word input{
-    font-size: 50px;
+    font-size: 35px;
     text-align: center;
-    width: 56px;
-    ;
+    width: 70px;
+    height: 70px;;
 }
 
-.borders-1,.borders-2,.borders-3,.borders-4,.borders-5{
+.borders-1,.borders-2,.borders-3,.borders-4,.borders-5,.borders-6{
     display: flex;
 }
 
-.borders-1 div,.borders-2 div,.borders-3 div,.borders-4 div,.borders-5 div{
+.borders-1 div,.borders-2 div,.borders-3 div,.borders-4 div,.borders-5 div, .borders-6 div{
     margin: 2px 0;
-    width: 56px;
-    height: 62px;
+    width: 70px;
+    height: 70px;
     border: solid 1px black;
     font-size: 50px;
     text-align: center;
@@ -66,6 +70,13 @@ h3{
 #nextButton{
     display: none;
     margin: 15px;
+    padding: 16px;
+    width: 200px;
+}
+
+#sendDatos{
+    display: block;
+    margin: 10 0 35px 0;
     padding: 16px;
     width: 200px;
 }
@@ -111,6 +122,9 @@ h3{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 75%;
+    height: 350px;
+    max-width: 500px;
 
 }
 
@@ -137,6 +151,57 @@ h3{
     margin: 0 0 25px 0;
 }
 
-#popupboton{
-    width: 100px;
+#popupboton, #deleteAll{
+    width: 200px;
+    padding: 16px;
+
+}
+
+@media(max-width: 360px){
+    .borders-1 div,.borders-2 div,.borders-3 div,.borders-4 div,.borders-5 div, .borders-6 div{
+        margin: 2px 0;
+        width: 55px;
+        height: 55px;
+        border: solid 1px black;
+        font-size: 50px;
+        text-align: center;
+    }
+    
+    .inputs_word input{
+        font-size: 35px;
+        text-align: center;
+        width: 55px;
+        height: 55px;
+    }
+    
+    
+    
+    #sendButton{
+        display: block;
+        margin: 15px;
+        padding: 16px;
+        width: 200px;
+    }
+    
+    #resetButton{
+        display: none;
+        margin: 15px;
+        padding: 16px;
+        width: 200px;
+    }
+    
+    #nextButton{
+        display: none;
+        margin: 15px;
+        padding: 16px;
+        width: 200px;
+    }
+    
+    #sendDatos{
+        display: block;
+        margin: 10 0 35px 0;
+        padding: 16px;
+        width: 200px;
+    }
+    
 }

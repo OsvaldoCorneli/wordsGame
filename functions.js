@@ -54,3 +54,31 @@ export const allwords = async () => {
     return word;
 
 }
+
+
+export function agregarPalabraLocalStorage(array, tipo){
+    
+ switch(tipo){
+    case "acetarda":
+        localStorage.setItem("acertadas", JSON.stringify(array))
+    break;
+    case "noAcertada":
+        localStorage.setItem("noacertadas", JSON.stringify(array))
+    break;
+    case "racha":
+          localStorage.setItem("racha", array)  
+    break;
+    case "rachaMaxima":
+            localStorage.setItem("rachaM", array)
+    break;
+    case "ultimaRacha":
+            localStorage.setItem("ultimaRacha", array)       
+    break;
+    default:
+    break;
+ }
+
+
+}
+
+
