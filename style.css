@@ -151,10 +151,22 @@ h3{
     margin: 0 0 25px 0;
 }
 
-#popupboton, #deleteAll{
+#popupboton {
     width: 200px;
     padding: 16px;
 
+}
+#deleteAll{
+    width: 120px;
+    padding: 16px;
+    background-color: rgb(196, 0, 0);
+    box-shadow: 0;
+    color: white;
+}
+
+#cancelarboton, #aceptardelete{
+    width: 120px;
+    padding: 16px;
 }
 
 @media(max-width: 360px){
@@ -180,28 +192,47 @@ h3{
         display: block;
         margin: 15px;
         padding: 16px;
-        width: 200px;
+        width: 100%;
     }
     
     #resetButton{
         display: none;
         margin: 15px;
         padding: 16px;
-        width: 200px;
+        width: 100%;
     }
     
     #nextButton{
         display: none;
         margin: 15px;
         padding: 16px;
-        width: 200px;
+        width: 100%;
     }
     
     #sendDatos{
         display: block;
         margin: 10 0 35px 0;
         padding: 16px;
-        width: 200px;
+        width: 100%;
+    }
+
+    #popupboton {
+        width: 100%;
+        padding: 16px;
+    
+    }
+    #deleteAll{
+        width: 100%px;
+        padding: 16px;
+        background-color: rgb(196, 0, 0);
+        box-shadow: 0;
+        color: white;
+    
+    }
+
+    #cancelarboton, #aceptardelete{
+        width: 100%px;
+        padding: 16px;
     }
     
 }

@@ -309,6 +309,7 @@ function popUp(value , botons){
     if(botons){
         spanPop.innerHTML=`
         <div id="contenedor1">
+           <button id="deleteAll" type="boton">Borrar todo</button>
    <div id="congrats">
    <h3>Estadistica</h3>
    </div>
@@ -320,8 +321,8 @@ function popUp(value , botons){
    <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
 </div>
 
-    <div style="display: flex;">
-    <button id="deleteAll" type="boton">Borrar todo</button>
+    <div>
+ 
    <button id="popupboton" type="boton">Aceptar</button>
 
     </div>
@@ -333,7 +334,7 @@ function popUp(value , botons){
 
     const boton = obtenerElementos("popupboton","id", false)
     const botonDelete = obtenerElementos("deleteAll", "id", false);
-
+    const cancelarboton = obtenerElementos("cancelarboton", "id", false)
     boton.addEventListener("click",()=>{
 
         closePopup(body,spanPop)
@@ -344,6 +345,10 @@ function popUp(value , botons){
 
         deleteAll()
 
+    })
+
+    cancelarboton.addEventListener("click",()=>{
+        closePopup(body,spanPop)
     })
 }
 
@@ -393,6 +398,5 @@ function deleteAll(){
     localStorage.removeItem("racha")
     localStorage.removeItem("rachaM")
     localStorage.removeItem("rachaM")
-
-
+    window.location.reload(true);
 }
