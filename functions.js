@@ -57,28 +57,22 @@ export const allwords = async () => {
 
 
 export function agregarPalabraLocalStorage(array, tipo){
-    const acertada = localStorage.getItem("acertadas")
-    const noAcertada = localStorage.getItem("noacertadas")
-    console.log(acertada)
+    
  switch(tipo){
     case "acetarda":
-
-    if(acertada != null){
         localStorage.setItem("acertadas", JSON.stringify(array))
-        console.log("existe!")
-    }
-    else{
-        localStorage.setItem("acertadas", JSON.stringify(array));
-        console.log("ingreso else")
-    }
-
-
     break;
     case "noAcertada":
-
+        localStorage.setItem("noacertadas", JSON.stringify(array))
     break;
     case "racha":
-
+          localStorage.setItem("racha", array)  
+    break;
+    case "rachaMaxima":
+            localStorage.setItem("rachaM", array)
+    break;
+    case "ultimaRacha":
+            localStorage.setItem("ultimaRacha", array)       
     break;
     default:
     break;

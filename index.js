@@ -4,11 +4,14 @@ let palabraSecreta;
 const botonSend = obtenerElementos("sendButton", "id", false)
 const botonNext = obtenerElementos("nextButton", "id", false)
 const botonReset = obtenerElementos("resetButton", "id", false)
+const senddatos = obtenerElementos("sendDatos", "id", false)
 let inputs = obtenerElementos("inputs_word input", "class", true)
 let racha = 0
 let borderindex = 1
 let palabrasUsadas = []
 let palabrasNoAcertadas = []
+let rachaMaxima = 0;
+let ultimaRacha = 0;
 
 botonNext.addEventListener("click", () => {
     nextWordGame(true)
@@ -21,6 +24,9 @@ botonReset.addEventListener("click", () => {
     nextWordGame(false)
 })
 
+senddatos.addEventListener("click",()=>{
+    popUp(null, true)
+})
 
 
 const getTheWord = async () => {
@@ -68,7 +74,6 @@ inputs.forEach((input, index, inputs) => {
 
 
 async function trueOrFalse() {
-    console.log("palabra",palabraSecreta)
     const palabraUsuario = ObtenerPalabraUsuario(inputs);
 
     const words = await allwords()
@@ -88,6 +93,11 @@ async function trueOrFalse() {
     if (palabraSecreta == palabraUsuario.toLowerCase()) {
         colorearLetras(true)
         racha++;
+        if(rachaMaxima < racha){
+            rachaMaxima = racha;
+            agregarPalabraLocalStorage(rachaMaxima ,"rachaMaxima")
+        }
+        agregarPalabraLocalStorage(racha ,"racha")
         botonSend.style.display = "none";
         botonSend.disabled = true;
         botonNext.style.display = "block"
@@ -231,11 +241,19 @@ function colorearLetras(value) {
                 botonReset.disabled = false;
                 inputs.forEach(element => element.disabled = true)
                 palabrasNoAcertadas.push(palabraSecreta)
-                racha = 0;
+                if(rachaMaxima < racha){
+                    rachaMaxima = racha;
+                    agregarPalabraLocalStorage(rachaMaxima ,"rachaMaxima")
+                }
                 setTimeout(()=>{
                     popUp(false)
-    
+                    
                 },[1500])
+                ultimaRacha = racha;
+                agregarPalabraLocalStorage(palabrasNoAcertadas ,"noAcertada")
+                agregarPalabraLocalStorage(ultimaRacha ,"ultimaRacha")
+                racha = 0;
+                agregarPalabraLocalStorage(racha ,"racha")
         }
         }
     }
@@ -243,7 +261,7 @@ function colorearLetras(value) {
 
 
 
-function popUp(value){
+function popUp(value , botons){
 
     
     const body = obtenerElementos("body","etiqueta", false)
@@ -259,6 +277,7 @@ function popUp(value){
             </div>
             <h3>"${palabraSecreta.toUpperCase()}"</h3>
             <div id="data">
+                <h4>Racha maxima: ${rachaMaxima}</h4>
                 <h4>Racha: ${racha}</h4>
                 <h4>Acertadas: ${palabrasUsadas.length}</h4>
                 <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
@@ -276,7 +295,8 @@ function popUp(value){
         <h3>La palabra era:</h3>
         <h3 style="background-color: red; color: white; width: 100%; text-align: center;">"${palabraSecreta.toUpperCase()}"</h3>
         <div id="data">
-        <h4>Racha: ${racha}</h4>
+        <h4>Racha Maxima ${rachaMaxima}</h4>
+        <h4>Ultima racha: ${ultimaRacha}</h4>
         <h4>Acertadas: ${palabrasUsadas.length}</h4>
         <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
     </div>
@@ -286,9 +306,33 @@ function popUp(value){
 
     }
 
+    if(botons){
+        spanPop.innerHTML=`
+        <div id="contenedor1">
+   <div id="congrats">
+   <h3>Estadistica</h3>
+   </div>
+   <div id="data">
+   <h4>Racha Maxima: ${rachaMaxima}</h4>
+   <h4>Ultima racha: ${ultimaRacha}</h4>
+   <h4>Racha actual ${racha}</h4>
+   <h4>Acertadas: ${palabrasUsadas.length}</h4>
+   <h4>No acertadas: ${palabrasNoAcertadas.length}</h4>
+</div>
+
+    <div style="display: flex;">
+    <button id="deleteAll" type="boton">Borrar todo</button>
+   <button id="popupboton" type="boton">Aceptar</button>
+
+    </div>
+</div>
+   `;
+    }
+
     body.appendChild(spanPop)
 
     const boton = obtenerElementos("popupboton","id", false)
+    const botonDelete = obtenerElementos("deleteAll", "id", false);
 
     boton.addEventListener("click",()=>{
 
@@ -296,6 +340,11 @@ function popUp(value){
 
     })
     
+    botonDelete.addEventListener("click",()=>{
+
+        deleteAll()
+
+    })
 }
 
 
@@ -309,16 +358,41 @@ function closePopup(body, pop){
 
 export function primeraCarga(){
     const acertadas = localStorage.getItem("acertadas")
-    const noacertadas = localStorage.getItem("noAcertadas")
+    const noacertadas = localStorage.getItem("noacertadas")
     const rachas = localStorage.getItem("racha")
-    
+    const rachasM = localStorage.getItem("rachaM")
+    const ultimaRachas = localStorage.getItem("rachaM")
 
     if(acertadas != null){
         palabrasUsadas = JSON.parse(acertadas)
     }
+    if(noacertadas != null){
+        palabrasNoAcertadas = JSON.parse(noacertadas)
+    }
+    if(rachas != null){
+        racha = rachas
+    } 
 
+    if(rachasM != null){
+        rachaMaxima = rachasM
+    } 
+
+    if(ultimaRachas != null){
+        ultimaRacha = ultimaRachas;
+    }
     
 
+
+
+}
+
+function deleteAll(){
+
+    localStorage.removeItem("acertadas")
+    localStorage.removeItem("noacertadas")
+    localStorage.removeItem("racha")
+    localStorage.removeItem("rachaM")
+    localStorage.removeItem("rachaM")
 
 
 }
